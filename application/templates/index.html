@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LangChain POC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <body>
+    <h1>Hva lurer du på?</h1>
+    <div>
+        <form method="post">
+            <input type="text" name="spørsmål" value="{{ spørsmål }}" placeholder="Hva lurer du på?"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% if feil %}
+    <div>
+        <p>{{ feil }}</p>
+    </div>
+    {% endif %}
+
+    {% if svar %}
+    <div>
+        <p>{{ svar }}</p>
+    </div>
+    {% endif %}
+  </body>
+</html>
