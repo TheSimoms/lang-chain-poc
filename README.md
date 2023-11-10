@@ -29,7 +29,14 @@ pip3 install -r requirements.txt
 
 Last ned ønsket modell fra [GPT4All](https://gpt4all.io/index.html) sine nettsider.
 
-Lagre modellen som `data/modell.gguf`.
+Lagre modellen i `data/modeller/`.
+
+Legg modellnavnet i miljøvariabelen `LLM`, f.eks.
+```console
+export LLM = "mistral-7b-openorca.Q4_0.gguf"
+```
+
+Dersom `LLM`-miljøvariabelen mangler, brukes `mistral-7b-openorca.Q4_0.gguf` som standard.
 
 ### Gjøre klar dokumenter
 

@@ -1,6 +1,8 @@
 import argparse
 import logging
+import os
 
+from dotenv import load_dotenv
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import PyPDFDirectoryLoader
 from langchain.embeddings import GPT4AllEmbeddings
@@ -8,10 +10,12 @@ from langchain.llms import GPT4All
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 
-from .util.data import data_file_path
+from util.data import data_file_path
 
 
 def still_spørsmål(spørsmål: str):
+    load_dotenv()
+
     logging.debug(f'Forsøker å finne svaret på følgende spørsmål: "{spørsmål}"')
     logging.debug('Laster inn PDF-dokumenter')
 
@@ -27,7 +31,11 @@ def still_spørsmål(spørsmål: str):
 
     logging.debug('Laster inn LLM')
 
-    llm = GPT4All(model=data_file_path('modell.gguf'))
+    llm_navn = os.getenv('LLM', 'mistral-7b-openorca.Q4_0.gguf.gguf')
+
+    logging.debug(f'Bruker LLM {llm_navn}')
+
+    llm = GPT4All(model=data_file_path(f'modeller/{llm_navn}'))
     chain = load_qa_chain(llm=llm, chain_type='stuff')
 
     logging.debug('Utfører spørring')
